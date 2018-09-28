@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm-run-all --parallel watch:*",
     "watch:server": "npx nodemon dist/server.js -w dist",
-    "watch:build": "npx webpack -w src",
+    "watch:build": "npx webpack -w",
     "watch:scss": "npx node-sass src/client/scss/main.scss public/css/styles.css --output-style compressed --watch src/client/scss --recursive"
   },
   "keywords": [],
