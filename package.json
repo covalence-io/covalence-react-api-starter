@@ -4,10 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build:ts": "npx webpack",
+    "build:scss": "npx node-sass src/client/scss/main.scss public/css/styles.css --output-style compressed",
+    "build": "npm-run-all --parallel build:*",
     "dev": "npm-run-all --parallel watch:*",
+    "start": "node dist/server.js",
+    "watch:ts": "npm run build:ts -- -w",
     "watch:server": "npx nodemon dist/server.js -w dist",
-    "watch:build": "npx webpack -w",
-    "watch:scss": "npx node-sass src/client/scss/main.scss public/css/styles.css --output-style compressed --watch src/client/scss --recursive"
+    "watch:scss": "npm run build:scss --watch src/client/scss --recursive"
   },
   "keywords": [],
   "author": "",
