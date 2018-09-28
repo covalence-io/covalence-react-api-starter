@@ -6,8 +6,11 @@ const serverConfig = {
       rules: [
         {
           test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/
+          loader: 'ts-loader',
+          exclude: /node_modules/,
+          options: {
+              configFile: 'tsconfig.server.json'
+          }
         }
       ]
     },
@@ -15,10 +18,14 @@ const serverConfig = {
       extensions: ['.tsx','.ts','.js']
     },
     output: {
-      filename: 'bundle.js',
+      filename: 'server.js',
       path: path.resolve(__dirname, 'dist')
     },
     target: 'node'
+  };
+
+  const clientConfig = {
+
   };
 
 module.exports = [serverConfig]
