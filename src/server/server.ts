@@ -12,8 +12,7 @@ app.use(routes);
 
 //Render the React app if no route is found in the api/auth/etc.
 app.use('*', (req, res) => {
-    console.log(path.join(__dirname));
-    res.sendFile(path.join(__dirname, './views/index.html'));
+    res.sendFile(path.join(__dirname, '../src/server/views/index.html'));
 });
 
 app.listen(process.env.PORT || '3000', () => {
