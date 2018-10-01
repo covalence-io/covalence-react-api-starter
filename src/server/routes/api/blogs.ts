@@ -1,16 +1,55 @@
 import * as express from 'express';
+import { Blogs } from '../../db';
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
+    
+    try {
+        res.json(await Blogs.all());
+    } catch(e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
 
-    res.json([{
-        id: 1,
-        authorid: 1,
-        title: 'Covalence is Life',
-        body: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`
-    }]);
+});
 
+router.get('/:id', async (req, res, next) => {
+
+    try {
+        res.json(await Blogs.one(req.params.id));
+    } catch(e) {
+        res.sendStatus(500);
+    }
+});
+
+router.post('/', async (req, res, next) => {
+
+    try {
+        res.json(await Blogs.insert(req.body));
+    } catch(e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
+router.put('/:id', async (req, res, next) => {
+
+    try {
+        res.json(await Blogs.update(req.params.id, req.body));
+    } catch(e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+});
+
+router.delete('/:id', async (req, res, next) => {
+
+    try {
+        res.json(await Blogs.delete(req.params.id));
+    } catch (e) {
+        res.sendStatus(500);
+    }
 });
 
 export default router;

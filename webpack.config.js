@@ -1,6 +1,9 @@
 const path = require('path');
 
-const serverConfig = {
+const serverConfig = (env, argv) => {
+  
+  return {
+    mode: argv.mode || 'development',
     entry: './src/server/server.ts',
     module: {
       rules: [
@@ -25,7 +28,8 @@ const serverConfig = {
     node: {
       __dirname: false
     }
-  };
+  }
+};
 
   const clientConfig = {
     entry: './src/client/index.tsx',
