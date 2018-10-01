@@ -1,6 +1,4 @@
 import * as express from 'express';
-import usersRouter from './users';
-import blogsRouter from './blogs';
 import TableRouter from './tablerouter';
 import * as tables from '../../db'
 
