@@ -1,14 +1,20 @@
 import * as React from 'react';
-import Home from './Home';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-class App extends React.Component {
+import Home from './Home';
+import Navbar from './Navbar';
+import Blog from './Blog';
+
+export default class App extends React.Component {
     render() {
         return (
-            <div className="App">
-                <Home></Home>
-            </div>
+            <Router>
+                <>
+                <Navbar></Navbar>
+                <Route exact path="/" component={Home} />
+                <Route path="/blog/:blogId" component={Blog} />
+                </>
+            </Router>
         );
     }
 }
-
-export default App;
