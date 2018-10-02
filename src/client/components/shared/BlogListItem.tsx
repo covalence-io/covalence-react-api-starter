@@ -8,7 +8,7 @@ export default class BlogListItem extends React.Component<IBlogListItemProps>{
                 <div className="card">
                     <img className="card-img-top" src="/images/bloghero.jpg" alt={this.props.title} />
                     <div className="card-body">
-                        <h1 className="card-title">{this.props.title}</h1>
+                        <h2 className="card-title">{this.props.title}</h2>
                         <p className="card-text">{this.props.date}</p>
                         <Link to={`/blog/${this.props.blogid}`} className="btn btn-primary">View</Link>
                     </div>

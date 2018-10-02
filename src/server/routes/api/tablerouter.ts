@@ -53,5 +53,13 @@ export default class TableRouter<T> {
                 res.sendStatus(500);
             }
         });
+
+        this.Router.post('/find', async (req, res, next) => {
+            try {
+                res.json(await table.find(req.body));
+            } catch(e) {
+                res.sendStatus(500);
+            }
+        });
     }
 }

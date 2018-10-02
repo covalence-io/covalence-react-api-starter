@@ -1,12 +1,16 @@
 import * as express from 'express';
 import * as cors from 'cors';
-import routes from './routes';
 import * as path from 'path';
+import * as passport from 'passport';
+
+import routes from './routes';
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static('./public'));
+app.use(passport.initialize());
 
 app.use(routes);
 

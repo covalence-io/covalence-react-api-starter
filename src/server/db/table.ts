@@ -86,51 +86,39 @@ export default class Table<T> {
         });
     }
 
-    // find(row: T) : Promise<mssql.IRecordSet<T>> {
+    find(row: T) : Promise<T[]> {
 
-    //     let ps = this.prepareRow(row,new mssql.PreparedStatement(pool));
+        return new Promise((resolve, reject) => {
+            pool.query(`SELECT * FROM ${this.tableName} WHERE ${Object.keys(row).map((v) => {
+                return `${v} = ?`;
+            })}`,
+            this.rowToValueArray(row),
+            (err, results) => {
+                if(err) {
+                    return reject(err);
+                } else {
+                    return resolve(results);
+                }
+            });
+        });
+    }
 
-    //     return ps.prepare(`SELECT * FROM ${this.tableName} WHERE ${Object.keys(row).map((v) => {
-    //         return `${v} = @${v}`;
-    //     })}`)
-    //     .then(() => {
-    //         return ps.execute(row)
-    //         .then(r => {
-    //             this.unprepareStatement(ps);
-    //             return r.recordset;
-    //         });
-    //     }).catch(e => {
-    //         console.log(e);
-    //         this.unprepareStatement(ps);
-    //         return null;
-    //     });
-    // }
+    findOne(row: T) : Promise<T> {
 
-    // findOne(row: T) : Promise<T> {
-
-    //     let ps = this.prepareRow(row,new mssql.PreparedStatement(pool));
-
-    //     return ps.prepare(`SELECT TOP 1 * FROM ${this.tableName} WHERE ${Object.keys(row).map((v) => {
-    //         return `${v} = @${v}`;
-    //     })}`)
-    //     .then(() => {
-    //         return ps.execute(row)
-    //         .then(r => {
-    //             this.unprepareStatement(ps);
-    //             return r.recordset.length > 0 ? r.recordset[0] : null;
-    //         });
-    //     }).catch(e => {
-    //         console.log(e);
-    //         this.unprepareStatement(ps);
-    //         return null;
-    //     });
-    // }
-
-    // private unprepareStatement(ps: mssql.PreparedStatement) {
-    //     ps.unprepare(err => {
-    //         if(err) console.log(err);
-    //     });
-    // }
+        return new Promise((resolve, reject) => {
+            pool.query(`SELECT TOP 1 * FROM ${this.tableName} WHERE ${Object.keys(row).map((v) => {
+                return `${v} = ?`;
+            })}`,
+            this.rowToValueArray(row),
+            (err, results) => {
+                if(err) {
+                    return reject(err);
+                } else {
+                    return resolve(results[0]);
+                }
+            });
+        });
+    }
 
     private rowToValueArray(row: any): any[] {
         let vals: any[] = [];

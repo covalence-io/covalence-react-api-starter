@@ -1,6 +1,7 @@
 import * as React from 'react';
-import BlogListItem from './BlogListItem';
 import * as fetch from 'isomorphic-fetch';
+
+import BlogListItem from '../shared/BlogListItem';
 
 export default class Home extends React.Component<any, IHomeState>{
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as fetch from 'isomorphic-fetch';
-import BlogListItem from './BlogListItem';
+import BlogListItem from '../shared/BlogListItem';
 
 export default class Blog extends React.Component<any, IBlogState> {
 

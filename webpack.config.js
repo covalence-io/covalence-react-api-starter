@@ -1,7 +1,8 @@
 const path = require('path');
+var nodeExternals = require('webpack-node-externals');
 
 const serverConfig = (env, argv) => {
-  
+
   return {
     mode: argv.mode || 'development',
     entry: './src/server/server.ts',
@@ -12,13 +13,13 @@ const serverConfig = (env, argv) => {
           loader: 'ts-loader',
           exclude: /node_modules/,
           options: {
-              configFile: 'tsconfig.server.json'
+            configFile: 'tsconfig.server.json'
           }
         }
       ]
     },
     resolve: {
-      extensions: ['.tsx','.ts','.js']
+      extensions: ['.tsx', '.ts', '.js']
     },
     output: {
       filename: 'server.js',
@@ -27,11 +28,13 @@ const serverConfig = (env, argv) => {
     target: 'node',
     node: {
       __dirname: false
-    }
+    },
+    externals: [nodeExternals()]
   }
 };
 
-  const clientConfig = {
+const clientConfig = {
+  
     entry: './src/client/index.tsx',
     devtool: 'inline-source-map',
     module: {
@@ -47,7 +50,7 @@ const serverConfig = (env, argv) => {
       ]
     },
     resolve: {
-      extensions: [ '.tsx', '.ts', '.js' ]
+      extensions: ['.tsx', '.ts', '.js']
     },
     output: {
       filename: 'app.js',
