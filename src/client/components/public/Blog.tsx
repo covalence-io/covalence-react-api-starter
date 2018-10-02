@@ -1,8 +1,9 @@
 import * as React from 'react';
 
 import json from '../../utils/api';
+import { RouteComponentProps } from 'react-router';
 
-export default class Blog extends React.Component<any, IBlogState> {
+export default class Blog extends React.Component<IBlogProps, IBlogState> {
 
     constructor(props: any) {
         super(props);
@@ -40,6 +41,7 @@ export default class Blog extends React.Component<any, IBlogState> {
     }
 }
 
+interface IBlogProps extends RouteComponentProps {}
 interface IBlogState {
     title?: string;
     body?: string;

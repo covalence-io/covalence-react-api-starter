@@ -1,9 +1,10 @@
 import * as fetch from 'isomorphic-fetch';
 
 let AccessToken:string;
-let Role: string = 'guest';
 
-export default async (uri: string, method: string = 'GET', body?: {}) => {
+export let User: any = {};
+
+export const json = async (uri: string, method: string = 'GET', body?: {}) => {
 
     let headers: any = {
         'Content-Type': 'application/json'
@@ -30,7 +31,9 @@ export default async (uri: string, method: string = 'GET', body?: {}) => {
     }
 }
 
-export const SetAccessToken = (token: string, role: string = 'guest') => {
+export const SetAccessToken = (token: string, user: {} = { role: 'guest' }) => {
     AccessToken = token;
-    Role = role;
+    User.role = user;
 }
+
+export default json;
