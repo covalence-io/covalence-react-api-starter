@@ -4,13 +4,23 @@ import * as LocalStrategy from 'passport-local';
 import { ComparePassword } from '../utils/security/passwords';
 import { Users } from '../db';
 
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+  
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
+
 passport.use(new LocalStrategy.Strategy({
-        usernameField: 'email'
+        usernameField: 'email', 
+        session: false
 }, async (email, password, done) => {
 
     try {
         let user = await Users.findOne({ email });
-        if(ComparePassword(password, user.password)) {
+        if(user && ComparePassword(password, user.password)) {
+            console.log(user);
             done(null, user);
         } else {
             done(null, false);

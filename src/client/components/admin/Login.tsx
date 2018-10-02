@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as fetch from 'isomorphic-fetch';
 import { Link } from 'react-router-dom';
+import Alert, { MessageTypes } from '../shared/Alert';
 
 export default class Login extends React.Component<ILoginProps, ILoginState> {
 
@@ -8,18 +9,60 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            loginFailed: false
         }
     }
 
-    Login = () => {
+    private loggingIn = false;
 
+    Login = async () => {
+        
+        if(this.loggingIn) return;
+
+        try {
+            this.loggingIn = true;
+            this.setState({ loginFailed: false });
+            let result = await fetch('/auth/login', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: this.state.email,
+                    password: this.state.password
+                })
+            });
+
+            if(result.ok) {
+                alert(await result.json());
+            } else {
+                this.setState({ loginFailed: true });
+            }
+        } catch(e) {
+            this.setState({ loginFailed: true });
+        } finally {
+            this.loggingIn = false;
+        }
     }
 
     render() {
+
+        let alert;
+        if(this.state.loginFailed) {
+            alert = <Alert message="Login Failed" messageType={MessageTypes.Error}></Alert>;
+        } else {
+            alert = null;
+        }
+
         return (
             <main className="py-5">
                 <div className="container py-5">
+                    <div className="row">
+                        <div className="col-md-4 offset-md-4">
+                            {alert}
+                        </div>
+                    </div>
                     <div className="row">
                         <div className="col-md-4 offset-md-4">
                             <div className="form-row">
@@ -52,6 +95,7 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
 
 interface ILoginProps {}
 interface ILoginState {
+    loginFailed: boolean;
     email: string;
     password: string;
 }

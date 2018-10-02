@@ -106,9 +106,10 @@ export default class Table<T> {
     findOne(row: T) : Promise<T> {
 
         return new Promise((resolve, reject) => {
-            pool.query(`SELECT TOP 1 * FROM ${this.tableName} WHERE ${Object.keys(row).map((v) => {
+            let sql = `SELECT * FROM ${this.tableName} WHERE ${Object.keys(row).map((v) => {
                 return `${v} = ?`;
-            })}`,
+            })} LIMIT 1;`;
+            pool.query(sql,
             this.rowToValueArray(row),
             (err, results) => {
                 if(err) {
