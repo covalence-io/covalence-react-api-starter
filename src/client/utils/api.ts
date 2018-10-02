@@ -6,8 +6,6 @@ export let User: any = {
     role: localStorage.getItem('role') || null
 };
 
-
-
 export const json = async (uri: string, method: string = 'GET', body?: {}) => {
 
     let headers: any = {

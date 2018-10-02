@@ -14,34 +14,48 @@ export default class Compose extends React.Component<IComposeProps, IComposeStat
         this.state = {
             title: '',
             body: '',
-            authorid: User.userid
+            authorid: User.userid,
+            saveStatus: null
         }
     }
 
     private alert: JSX.Element = null;
+    private saving: boolean = false;
 
     SaveBlog = async (e: React.FormEvent<HTMLFormElement>) => {
         
         e.preventDefault(); //don't do a form submission since we call an api
 
+        if(this.saving) return;
+
         try {
+            this.saving = true;
             let result = await json('/api/blogs', 'POST', {
                 authorid: User.userid,
                 title: this.state.title,
                 body: this.state.body,
             });
             if(result) {
-                this.alert = ALERT_SUCCESS;
+                this.setState({saveStatus: 'success' })
             } else {
-                this.alert = ALERT_ERROR;
+                this.setState({saveStatus: 'error' })
             }
         } catch(e) {
             console.log(e);
-            this.alert = ALERT_ERROR;
+            this.setState({saveStatus: 'error' });
+        } finally {
+            this.saving = false;
         }
     }
 
     render() {
+
+        if(!this.state.saveStatus) {
+            this.alert = null;
+        } else {
+            this.alert = this.state.saveStatus === 'success' ? ALERT_SUCCESS : ALERT_ERROR;
+        }
+
         return (
             <main className="py-5">
                 <div className="container py-5">
@@ -80,4 +94,5 @@ interface IComposeState {
     authorid?: number;
     title?: string;
     body?: string;
+    saveStatus?: string;
 }
