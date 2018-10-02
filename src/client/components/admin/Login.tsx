@@ -25,16 +25,16 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
         try {
             this.loggingIn = true;
             this.setState({ loginFailed: false });
-            let result = await json(
+            let token = await json(
                 '/auth/login', 
                 'POST', 
-                JSON.stringify({
+                {
                     email: this.state.email,
                     password: this.state.password
-                }));
+                });
 
-            if(result) {
-                SetAccessToken(await result.json());
+            if(token) {
+                SetAccessToken(token);
                 this.props.history.push('/admin');
             } else {
                 this.setState({ loginFailed: true });
