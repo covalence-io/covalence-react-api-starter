@@ -41,7 +41,7 @@ export default class Blog extends React.Component<IBlogProps, IBlogState> {
     }
 }
 
-interface IBlogProps extends RouteComponentProps {}
+interface IBlogProps extends RouteComponentProps<{ blogId: string}> {}
 interface IBlogState {
     title?: string;
     body?: string;
