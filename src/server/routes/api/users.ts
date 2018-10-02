@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
 
-import TableRouter from './tablerouter';
+import TableRouter from 'tablerouter';
 import { Users, IUser } from '../../db';
 
 const isAdmin: RequestHandler = (req, res, next) => {

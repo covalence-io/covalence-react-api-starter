@@ -46,6 +46,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "tablecrud": "^0.1.0",
+    "tablerouter": "^0.1.0",
     "ts-loader": "^5.2.1",
     "typescript": "^3.1.1",
     "webpack": "^4.20.2",
