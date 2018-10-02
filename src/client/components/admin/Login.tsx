@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { Link, BrowserRouterProps } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
 import Alert, { MessageTypes } from '../shared/Alert';
 import json, { SetAccessToken } from '../../utils/api';
@@ -24,18 +23,20 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
 
         try {
             this.loggingIn = true;
-            this.setState({ loginFailed: false });
-            let token = await json(
-                '/auth/login', 
-                'POST', 
-                {
-                    email: this.state.email,
-                    password: this.state.password
+            this.setState({ loginFailed: false }); //Resets the error Alert is there was an error
+
+            let result = await json('/auth/login', 'POST', 
+                {   email: this.state.email, 
+                    password: this.state.password 
                 });
 
-            if(token) {
-                SetAccessToken(token);
-                this.props.history.push('/admin');
+            if(result) {
+                SetAccessToken(result.token, result.role);
+                if(result.role === 'admin') {
+                    this.props.history.push('/admin');
+                } else {
+                    this.props.history.push('/');
+                }
             } else {
                 this.setState({ loginFailed: true });
             }
@@ -93,9 +94,7 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
     }
 }
 
-interface ILoginProps extends RouteComponentProps {
-
-}
+interface ILoginProps extends RouteComponentProps { }
 interface ILoginState {
     loginFailed: boolean;
     email: string;

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import * as fetch from 'isomorphic-fetch';
-import { Link } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
+
+import json, { SetAccessToken } from '../../utils/api';
 
 export default class Register extends React.Component<IRegisterProps, IRegisterState>{
 
@@ -21,14 +22,12 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
         if(this.registering) return;
         this.registering = true;
         try {
-            let result = await fetch('/auth/register', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(this.state)
-            });
-            let token = await result.json();
+            let token = await json('/auth/register',
+                'POST',
+                this.state
+            );
+            SetAccessToken(token);
+            this.props.history.push('/');
         } catch(e) {
             console.log(e);
         } finally {
@@ -75,7 +74,7 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
     }
 }
 
-interface IRegisterProps {}
+interface IRegisterProps extends RouteComponentProps {}
 interface IRegisterState {
     firstname: string;
     lastname: string;
