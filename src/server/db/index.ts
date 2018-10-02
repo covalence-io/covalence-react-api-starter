@@ -1,7 +1,11 @@
 import * as mysql from 'mysql';
-import Table from './table';
+import Table from 'tablecrud';
 
-export const Blogs = new Table<IBlog>('blogs', {
+import config from '../config';
+
+const pool = mysql.createPool(config.mysql);
+
+export const Blogs = new Table<IBlog>(pool, 'blogs', {
     id: mysql.Types.INT24,
     authorid: mysql.Types.INT24,
     title: mysql.Types.VARCHAR,
@@ -19,7 +23,7 @@ export interface IBlog {
     __created: Date;
 }
 
-export const Users = new Table<IUser>('users', {
+export const Users = new Table<IUser>(pool, 'users', {
     id: mysql.Types.INT24,
     email: mysql.Types.VARCHAR,
     password: mysql.Types.VARCHAR,
@@ -39,7 +43,7 @@ export interface IUser {
     __created?: Date;
 }
 
-export const AccessTokens = new Table<IAccessToken>('accesstokens', {
+export const AccessTokens = new Table<IAccessToken>(pool, 'accesstokens', {
     id: mysql.Types.INT24,
     userid: mysql.Types.INT24,
     token: mysql.Types.VARCHAR,
