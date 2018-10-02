@@ -1,10 +1,11 @@
 import * as express from 'express';
-import TableRouter from './tablerouter';
-import * as tables from '../../db'
+
+import usersRouter from './users';
+import blogsRouter from './blogs';
 
 const router = express.Router();
 
-router.use('/users', new TableRouter<tables.IUser>(tables.Users).Router);
-router.use('/blogs', new TableRouter<tables.IBlog>(tables.Blogs).Router);
+router.use('/users', usersRouter);
+router.use('/blogs', blogsRouter);
 
 export default router;

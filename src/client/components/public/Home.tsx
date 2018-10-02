@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as fetch from 'isomorphic-fetch';
+import json from '../../utils/api';
 
 import BlogListItem from '../shared/BlogListItem';
 
@@ -13,8 +13,7 @@ export default class Home extends React.Component<any, IHomeState>{
     }
 
     async componentWillMount() {
-        let result = await fetch('/api/blogs');
-        let blogs = await result.json();
+        let blogs = await json('/api/blogs');
         this.setState({
             blogs
         });

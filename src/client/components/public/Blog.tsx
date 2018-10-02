@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as fetch from 'isomorphic-fetch';
-import BlogListItem from '../shared/BlogListItem';
+
+import json from '../../utils/api';
 
 export default class Blog extends React.Component<any, IBlogState> {
 
@@ -13,8 +13,7 @@ export default class Blog extends React.Component<any, IBlogState> {
     }
 
     async componentWillMount() {
-        let result = await fetch(`/api/blogs/${this.props.match.params.blogId}`);
-        let blog = await result.json();
+        let blog = await json(`/api/blogs/${this.props.match.params.blogId}`);
         this.setState({
             title: blog.title,
             body: blog.body

@@ -25,6 +25,7 @@ export const Users = new Table<IUser>('users', {
     password: mysql.Types.VARCHAR,
     firstname: mysql.Types.VARCHAR,
     lastname: mysql.Types.VARCHAR,
+    role: mysql.Types.VARCHAR,
     __created: mysql.Types.DATETIME
 });
 
@@ -34,6 +35,7 @@ export interface IUser {
     password?: string;
     firstname?: string;
     lastname?: string;
+    role?: string;
     __created?: Date;
 }
 

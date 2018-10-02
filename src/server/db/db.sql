@@ -9,6 +9,7 @@ create table Users (
     password text,
     firstname varchar(100),
     lastname varchar(100),
+    role varchar(25) default 'guest',
     __created datetime default current_timestamp
 );
 
@@ -35,8 +36,8 @@ create table AccessTokens (
     __created datetime default current_timestamp
 );
 
-insert into users (email, password, firstname, lastname)
-values ('test@test.com', '$2b$10$qZa6Uxx948juxiJ1GJHbnOA7oPAk.eV5Rc0EjtUXsXEmLblKumX2a', 'Luke', 'Codewalker');
+insert into users (email, role, password, firstname, lastname)
+values ('test@test.com', 'admin', '$2b$10$qZa6Uxx948juxiJ1GJHbnOA7oPAk.eV5Rc0EjtUXsXEmLblKumX2a', 'Luke', 'Codewalker');
 
 set @userid = last_insert_id();
 

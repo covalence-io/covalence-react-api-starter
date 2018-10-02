@@ -1,7 +1,9 @@
 import * as React from 'react';
-import * as fetch from 'isomorphic-fetch';
-import { Link } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
+import { Link, BrowserRouterProps } from 'react-router-dom';
+
 import Alert, { MessageTypes } from '../shared/Alert';
+import json, { SetAccessToken } from '../../utils/api';
 
 export default class Login extends React.Component<ILoginProps, ILoginState> {
 
@@ -14,28 +16,26 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
         }
     }
 
-    private loggingIn = false;
+    private loggingIn = false; //Used to prevent double clicks on the login button
 
     Login = async () => {
         
-        if(this.loggingIn) return;
+        if(this.loggingIn) return; //Check if there is a login request alreaady happening
 
         try {
             this.loggingIn = true;
             this.setState({ loginFailed: false });
-            let result = await fetch('/auth/login', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
+            let result = await json(
+                '/auth/login', 
+                'POST', 
+                JSON.stringify({
                     email: this.state.email,
                     password: this.state.password
-                })
-            });
+                }));
 
-            if(result.ok) {
-                alert(await result.json());
+            if(result) {
+                SetAccessToken(await result.json());
+                this.props.history.push('/admin');
             } else {
                 this.setState({ loginFailed: true });
             }
@@ -93,7 +93,9 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
     }
 }
 
-interface ILoginProps {}
+interface ILoginProps extends RouteComponentProps {
+
+}
 interface ILoginState {
     loginFailed: boolean;
     email: string;
