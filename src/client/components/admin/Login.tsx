@@ -17,8 +17,10 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
 
     private loggingIn = false; //Used to prevent double clicks on the login button
 
-    Login = async () => {
+    Login = async (e: React.FormEvent<HTMLFormElement>) => {
         
+        e.preventDefault();
+
         if(this.loggingIn) return; //Check if there is a login request alreaady happening
 
         try {
@@ -31,7 +33,7 @@ export default class Login extends React.Component<ILoginProps, ILoginState> {
                 });
 
             if(result) {
-                SetAccessToken(result.token, result.role);
+                SetAccessToken(result.token, { userid: result.userid, role: result.role});
                 if(result.role === 'admin') {
                     this.props.history.push('/admin');
                 } else {

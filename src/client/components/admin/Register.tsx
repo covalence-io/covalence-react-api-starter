@@ -17,8 +17,10 @@ export default class Register extends React.Component<IRegisterProps, IRegisterS
 
     private registering = false;
 
-    RegisterUser = async () => {
+    RegisterUser = async (e: React.FormEvent<HTMLFormElement>) => {
         
+        e.preventDefault();
+
         if(this.registering) return;
         this.registering = true;
         try {

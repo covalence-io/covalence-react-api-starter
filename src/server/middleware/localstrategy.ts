@@ -20,7 +20,6 @@ passport.use(new LocalStrategy.Strategy({
     try {
         let user = await Users.findOne({ email });
         if(user && ComparePassword(password, user.password)) {
-            console.log(user);
             done(null, user);
         } else {
             done(null, false);

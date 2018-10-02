@@ -6,6 +6,7 @@ import Navbar from './shared/Navbar';
 import Blog from './public/Blog';
 import Login from './admin/Login';
 import Register from './admin/Register';
+import Compose from './admin/Compose';
 
 export default class App extends React.Component {
     render() {
@@ -17,6 +18,7 @@ export default class App extends React.Component {
                 <Route path="/blog/:blogId" component={Blog} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/register" component={Register} />
+                <Route exact path="/admin" component={Compose} />
                 </>
             </Router>
         );

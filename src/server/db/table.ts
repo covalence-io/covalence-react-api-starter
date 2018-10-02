@@ -108,7 +108,8 @@ export default class Table<T> {
         return new Promise((resolve, reject) => {
             let sql = `SELECT * FROM ${this.tableName} WHERE ${Object.keys(row).map((v) => {
                 return `${v} = ?`;
-            })} LIMIT 1;`;
+            }).join(` and `)} LIMIT 1;`;
+            console.log(sql);
             pool.query(sql,
             this.rowToValueArray(row),
             (err, results) => {

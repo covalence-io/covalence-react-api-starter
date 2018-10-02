@@ -1,8 +1,12 @@
 import * as fetch from 'isomorphic-fetch';
 
-let AccessToken:string;
+export let AccessToken:string = localStorage.getItem('token') || null;
+export let User: any = {
+    userid: localStorage.getItem('userid') || null,
+    role: localStorage.getItem('role') || null
+};
 
-export let User: any = {};
+
 
 export const json = async (uri: string, method: string = 'GET', body?: {}) => {
 
@@ -13,6 +17,8 @@ export const json = async (uri: string, method: string = 'GET', body?: {}) => {
     if(AccessToken) {
         headers['Authorization'] = `Bearer ${AccessToken}`;
     }
+    
+    console.log(AccessToken);
 
     try {
         let result = await fetch(uri, {
@@ -33,7 +39,11 @@ export const json = async (uri: string, method: string = 'GET', body?: {}) => {
 
 export const SetAccessToken = (token: string, user: {} = { role: 'guest' }) => {
     AccessToken = token;
-    User.role = user;
+    User = user;
+
+    localStorage.setItem('token', token);
+    localStorage.setItem('role', User.role);
+    localStorage.setItem('userid', User.userid);
 }
 
 export default json;
