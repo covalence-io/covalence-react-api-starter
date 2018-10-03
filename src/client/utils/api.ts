@@ -6,7 +6,7 @@ export let User: any = {
     role: localStorage.getItem('role') || null
 };
 
-export const json = async (uri: string, method: string = 'GET', body?: {}) => {
+export const json = async <T = any>(uri: string, method: string = 'GET', body?: {}) => {
 
     let headers: any = {
         'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ export const json = async (uri: string, method: string = 'GET', body?: {}) => {
             body: JSON.stringify(body)
         });
         if(result.ok) {
-            return await result.json();
+            return <T>(await result.json());
         } else {
             return false;
         }
@@ -33,7 +33,7 @@ export const json = async (uri: string, method: string = 'GET', body?: {}) => {
     }
 }
 
-export const SetAccessToken = (token: string, user: {} = { role: 'guest' }) => {
+export const SetAccessToken = (token: string, user: {} = { userid: undefined, role: 'guest' }) => {
     AccessToken = token;
     User = user;
 
