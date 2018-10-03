@@ -11,7 +11,7 @@
     "dev": "npm-run-all --parallel watch:*",
     "start": "node dist/server.js",
     "watch:postcss": "npm run build:postcss -- -w",
-    "watch:scss": "npm run build:scss --watch src/client/scss --recursive",
+    "watch:scss": "npm run build:scss -- --watch src/client/scss --recursive",
     "watch:server": "npx nodemon dist/server.js -w dist",
     "watch:ts": "npm run build:ts -- -w"
   },
