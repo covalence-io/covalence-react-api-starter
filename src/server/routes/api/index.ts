@@ -12,6 +12,7 @@ const router = express.Router();
 //We send back failures from within each router, but authenticate will populate the user on the request, etc.
 router.use((req, res, next) => { 
     passport.authenticate('bearer', { session: false }, (err, user, info) => {
+        if(user) req.user = user;
         return next();
     })(req, res, next);
 });

@@ -1,6 +1,9 @@
+/*
+use blog;
 drop table AccessTokens;
 drop table Blogs;
 drop table Users;
+*/
 
 create table Users (
 	id int not null auto_increment primary key,
