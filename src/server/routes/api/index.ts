@@ -3,6 +3,7 @@ import * as passport from 'passport';
 
 import usersRouter from './users';
 import blogsRouter from './blogs';
+import queriesRouter from './queries';
 
 const router = express.Router();
 
@@ -17,5 +18,6 @@ router.use((req, res, next) => {
 
 router.use('/users', usersRouter);
 router.use('/blogs', blogsRouter);
+router.use('/q', queriesRouter);
 
 export default router;

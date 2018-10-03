@@ -13,7 +13,7 @@ export default class Home extends React.Component<any, IHomeState>{
     }
 
     async componentWillMount() {
-        let blogs = await json('/api/blogs');
+        let blogs = await json('/api/q/blogsauthors');
         this.setState({
             blogs
         });
@@ -25,7 +25,7 @@ export default class Home extends React.Component<any, IHomeState>{
                 <div className="container py-5">
                     <div className="row">
                         {this.state.blogs.map((blog, i) => {
-                            return <BlogListItem blogid={blog.id} date={blog.publishedts} title={blog.title} key={i}></BlogListItem>
+                            return <BlogListItem blogid={blog.id} date={blog.publishedts} title={blog.title} author={`${blog.firstname} ${blog.lastname}` } key={i}></BlogListItem>
                         })}
                     </div>
                 </div>
@@ -35,5 +35,5 @@ export default class Home extends React.Component<any, IHomeState>{
 }
 
 interface IHomeState {
-    blogs: { id: number, title: string, publishedts: Date }[]
+    blogs: { id: number, title: string, publishedts: Date, firstname: string, lastname: string }[]
 }

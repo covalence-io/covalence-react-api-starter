@@ -1,9 +1,12 @@
 import * as mysql from 'mysql';
 import Table from 'tablecrud';
 
-import config from '../config';
+import pool from './pool';
+import GetBlogsAuthors from './queries/GetBlogsAuthors';
 
-const pool = mysql.createPool(config.mysql);
+export const Queries = {
+    GetBlogsAuthors
+}
 
 export const Blogs = new Table<IBlog>(pool, 'blogs', {
     id: mysql.Types.INT24,
