@@ -34,7 +34,7 @@
     "@types/react-dom": "^16.0.8",
     "@types/react-router": "^4.0.31",
     "@types/react-router-dom": "^4.3.1",
-    "bcrypt": "^3.0.1",
+    "bcrypt": "^5.0.0",
     "bootstrap": ">=4.3.1",
     "cors": "^2.8.4",
     "express": "^4.16.3",
