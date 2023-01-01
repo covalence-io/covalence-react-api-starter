@@ -52,10 +52,10 @@
     "react-router-dom": "^4.3.1",
     "tablecrud": "^0.1.0",
     "tablerouter": "^0.1.0",
-    "ts-loader": "^5.2.1",
+    "ts-loader": "^9.4.2",
     "typescript": "^3.1.1",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.1",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
